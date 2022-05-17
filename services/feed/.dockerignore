@@ -1,0 +1,4 @@
+Dockerfile
+.dockerignore
+start_app.sh
+README.md

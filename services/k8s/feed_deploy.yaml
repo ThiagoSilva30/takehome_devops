@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: feed-deployment
+  labels:
+    app: feed
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: feed
+  template:
+    metadata:
+      labels:
+        app: feed
+    spec:
+      containers:
+      - name: feed-container
+        image: thiagodockerid/feed:1.0
+        ports:
+          - containerPort: 3000
