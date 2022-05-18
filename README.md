@@ -25,4 +25,11 @@ minikube start --vm=true --cpus 4 --memory 4098
 Para verificar de modo grafico suas aplicacoes, execute;
 minikube dashboard
 
+Para ativar o serviço de ingress no minikube, execute o comando abaixo;
+minikube addons enable ingress
+
+Verifique se os pods foram criados;
+kubectl get pod -A | grep -i ingress
+
+
 
