@@ -42,3 +42,38 @@ Após habilitar o minikube, verifique se os pods responsaveis pelo funcionamento
 
 kubectl get pods -A
 
+Para executar a aplicacao, entre na pasta do kubernetes e execute o comando de criacao dos objetos;
+
+cd /services/k8s/
+kubectl create -f .
+
+Verifique se os elementos estao no ar;
+
+kubectl get pods,svc,deploy;
+
+O resultado será algo como abaixo;
+
+NAME                                   READY   STATUS    RESTARTS      AGE
+pod/auth-deployment-5854d6b87c-d287r   1/1     Running   2 (17h ago)   38h
+pod/feed-deployment-6c9cbcf86c-d4jxs   1/1     Running   3 (17h ago)   18h
+
+NAME                   TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)        AGE
+service/feed-service   LoadBalancer   10.99.103.253   10.99.103.253   80:30937/TCP   91s
+service/kubernetes     ClusterIP      10.96.0.1       <none>          443/TCP        38h
+
+NAME                              READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/auth-deployment   1/1     1            1           38h
+deployment.apps/feed-deployment   1/1     1            1           18h 
+
+
+Note que o service foi criado como loadbalance. Para ativar o load balance do minikube, execute;
+
+minikube tunnel;
+
+Agora realize os testes com o comando curl, exemplo abaixo;
+
+curl -H "Authorization: Bearer 66ec51ac-72ea-479d-8b5f-d99eede929f0" -v 10.99.103.253/feed/premium
+
+curl -H "Authorization: Bearer 66ec51ac-72ea-479d-8b5f-d99eede929f0" -v 10.99.103.253/feed/patriota
+
+
